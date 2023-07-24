@@ -36,17 +36,21 @@ START-OF-SELECTION .
     IF ( lines( lt_where ) GT 0 ) .
       APPEND 'and' TO lt_where .
     ENDIF .
-    APPEND 'countr in s_countr' TO lt_where .
+    APPEND 'countryfr in s_countr' TO lt_where .
   ENDIF .
 
   IF ( lines( lt_where ) EQ 0 ) .
     RETURN .
   ENDIF.
 
-  SELECT *
-    FROM spfli
-    INTO TABLE lt_data
-   WHERE (lt_where) .
+  TRY .
+      SELECT *
+        FROM spfli
+        INTO TABLE lt_data
+       WHERE (lt_where) .
+    CATCH cx_sy_dynamic_osql_semantics INTO DATA(excep).
+      MESSAGE i000(>0) WITH excep->get_text( ).
+  ENDTRY .
 
 END-OF-SELECTION .
 
