@@ -59,3 +59,4 @@ END-OF-SELECTION .
   ENDIF .
 
   cl_demo_output=>display( lt_data ) .
+  
