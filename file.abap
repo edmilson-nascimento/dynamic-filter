@@ -9,7 +9,8 @@ TABLES:
   spfli.
 
 DATA:
-  lt_where TYPE texy_where .
+  lt_data  TYPE spfli_tab,
+  lt_where TYPE texy_where.
 
 SELECT-OPTIONS:
   s_carrid FOR spfli-carrid,
@@ -48,3 +49,9 @@ START-OF-SELECTION .
    WHERE (lt_where) .
 
 END-OF-SELECTION .
+
+  IF ( lines( lt_data ) EQ 0 ) .
+    RETURN .
+  ENDIF .
+
+  cl_demo_output=>display( lt_data ) .
